@@ -20,11 +20,31 @@ public class AnimalTest {
             "Травоядное, Трава",
             "Хищник, Животные"
         })
-        @DisplayName("Проверка списка еды для известных видов животных")
-        void testGetFoodValidTypes(String kind, String expectedFirstItem) throws Exception {
+        @DisplayName("Проверка, что список еды не null")
+        void testGetFoodNotNull(String kind) throws Exception {
             List<String> food = animal.getFood(kind);
             assertNotNull(food);
+        }
+
+        @ParameterizedTest
+        @CsvSource({
+            "Травоядное, Трава",
+            "Хищник, Животные"
+        })
+        @DisplayName("Проверка, что список еды не пустой")
+        void testGetFoodNotEmpty(String kind) throws Exception {
+            List<String> food = animal.getFood(kind);
             assertFalse(food.isEmpty());
+        }
+
+        @ParameterizedTest
+        @CsvSource({
+            "Травоядное, Трава",
+            "Хищник, Животные"
+        })
+        @DisplayName("Проверка, что первый элемент списка еды корректный")
+        void testGetFoodFirstItem(String kind, String expectedFirstItem) throws Exception {
+            List<String> food = animal.getFood(kind);
             assertEquals(expectedFirstItem, food.get(0));
         }
 
